@@ -1,0 +1,5 @@
+---
+bugfixes:
+  - ansible-galaxy collection install - validate collection names read from artifact metadata before they are used in filesystem paths.
+  - user - handle dangling SSH key symlinks safely when regenerating keys with force enabled.
+  - get_url - reject remote checksum URLs that target a different host or port than the primary download URL.
