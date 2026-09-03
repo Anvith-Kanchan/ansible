@@ -1257,8 +1257,10 @@ class User(object):
             except OSError as e:
                 return (1, '', 'Failed to create %s: %s' % (ssh_dir, to_native(e)))
 
-        if os.path.exists(ssh_key_file):
+        if os.path.lexists(ssh_key_file):
             if self.force:
+                if not self.module.check_mode and os.path.islink(ssh_key_file):
+                    os.unlink(ssh_key_file)
                 self.module.warn(f'Overwriting existing ssh key private file "{ssh_key_file}"')
                 overwrite = 'y'
             else:
